@@ -5,6 +5,24 @@
 
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className
-) {
-  // your code here
-};
+  ) {
+    var result = [];
+    var docBody = document.body;
+
+    // Check each element for classList and contains the className
+    var hasClass =  function(element) {
+      if (element.classList && element.classList.contains(className)) {
+        result.push(element);
+      }
+
+      // Check child Nodes
+      if (element.hasChildNodes) {
+        for (var i = 0; i < element.childNodes.length; i++) {
+          hasClass(element.childNodes[i]);
+        }
+      }
+    }
+
+    hasClass(docBody);
+    return result;
+  };
